@@ -7,7 +7,8 @@
     var visualizer = new Visualizer(audioContext);
     var equalizer = new Equalizer(audioContext);
     var player = new Player(audioContext, equalizer, visualizer);
-    var uploader = new AudioFileUploader(audioContext, player);
+    var metadataLoader = new MetadataLoader();
+    var uploader = new AudioFileUploader(audioContext, player, metadataLoader);
 
     equalizer.bindEvents();
     player.bindEvents();

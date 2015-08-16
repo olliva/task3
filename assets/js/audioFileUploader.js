@@ -1,8 +1,9 @@
-function AudioFileUploader(audioContext, player) {
+function AudioFileUploader(audioContext, player, metadataLoader) {
     var self = this,
         audioFile = document.getElementById('audio-input-file'),
         dropContainer = document.getElementById('audio-drop-container'),
         fileName = document.getElementById('play-now');
+
 
     self.bindEvents = bindEvents;
 
@@ -12,12 +13,8 @@ function AudioFileUploader(audioContext, player) {
         }
 
         var fileReader = new FileReader();
-
         fileReader.onload = function (e) { onFileReaderLoad(e, file) };
-        fileReader.onerror = function (e) {
-            throw new Error(e);
-        };
-
+        fileReader.onerror = function (e) { throw new Error(e); };
         fileReader.readAsArrayBuffer(file);
     }
 
@@ -26,29 +23,13 @@ function AudioFileUploader(audioContext, player) {
 
         audioContext.decodeAudioData(fileResult,
             function (buffer) {
-                var url = file.url || file.name;
                 fileName.textContent = 'Сейчас исполняется файл: ' + url;
-                loadMetadata(url, FileAPIReader(file));
+                metadataLoader.loadMetadata(file);
                 player.playBuffer(buffer);
             },
             function (e) {
                 alert('Неподходящий формат файла');
             });
-    }
-
-    function loadMetadata(url, reader) {
-        ID3.loadTags(url,
-            function () {
-                var tags = ID3.getAllTags(url);
-                document.getElementById("artist").textContent = tags.artist || "";
-                document.getElementById("title").textContent = tags.title || "";
-                document.getElementById("album").textContent = tags.album || "";
-            },
-            {
-                tags: ["artist", "title", "album"],
-                dataReader: reader
-            });
-        document.getElementsByClassName('main-inform')[0].style.display = 'block';
     }
 
     function onDragover(e) {
