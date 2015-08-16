@@ -1,0 +1,13 @@
+phpmyadmin*
+dumper*
+webstat*
+.idea*
+upload/*
+
+syntax: regexp
+.*DS_Store
+.idea
+.*\._\./*
+/node_modules
+
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css"/>
+	<link rel="stylesheet" href="assets/css/styles.css"/>
+</head>
+<body>
+<div class="page">
+	<h1>Воспроизведение аудио файла</h1>
+	<div class="download-part">
+		<div class="canvas-part">
+			<p>Перетащите<br/>сюда файл</p>
+			<canvas id="audio-drop-container"></canvas>
+		</div>
+		<div class="or">или</div>
+		<div class="btn btn-default">
+			Выберите файл
+			<input id="audio-input-file" type="file" />
+		</div>
+
+	</div>
+
+	<div class="columns">
+		<div class="left-column">
+			<div id="play-now" class="play-now"></div>
+			<div class="controls">
+				<div class="buttons">
+					<button id="play-button" class="btn btn-default play-btn">Play</button>
+					<button id="pause-button" class="btn btn-default pause-btn">Pause</button>
+					<button id="stop-button" class="btn btn-default stop-btn">Stop</button>
+				</div>
+				<!--<select name="genre" id="genre">
+					<option value="normal">Normal</option>
+					<option value="pop">Pop</option>
+					<option value="rock">Rock</option>
+					<option value="jazz">Jazz</option>
+					<option value="classic">Classic</option>
+				</select>-->
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" id="dropdown-menu">Normal<span class="caret"></span></button>
+					<ul class="dropdown-menu" id="dropdown-list" style="display: none;">
+						<li><a href="#">Normal</a></li>
+						<li><a href="#">Pop</a></li>
+						<li><a href="#">Rock</a></li>
+						<li><a href="#">Jazz</a></li>
+						<li><a href="#">Classic</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="main-inform">
+				<h2>Основная информация</h2>
+				<div id="track-data">
+					<div>Исполнитель: <span id="artist"></span></div>
+					<div>Название песни: <span id="title"></span></div>
+					<div>Альбом: <span id="album"></span></div>
+				</div>
+			</div>
+		</div>
+		<div class="right-column">
+			<canvas id="visualizer" width="600" height="200"></canvas>
+		</div>
+	</div>
+
+
+
+</div>
+<script src="assets/js/id3.js"></script>
+<script src="assets/js/html5_audio_visualizer.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+button:focus,
+select:focus {
+  outline: none !important;
+}
+.page {
+  width: 1024px;
+  margin: auto;
+}
+h1 {
+  margin: 40px 0 25px;
+}
+p {
+  font-size: 14px;
+  line-height: 1.42857143;
+}
+.download-part {
+  margin-bottom: 25px;
+}
+.download-part .canvas-part,
+.download-part .or,
+.download-part .btn {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+}
+.canvas-part {
+  width: 200px;
+  height: 100px;
+  border: 1px dashed #ccc;
+  border-radius: 10px;
+  text-align: center;
+  line-height: 96px;
+}
+.canvas-part canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.canvas-part p {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+}
+.or {
+  margin: 0 20px;
+}
+.btn {
+  overflow: hidden;
+}
+.btn input {
+  line-height: 100px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.controls,
+.main-inform {
+  display: none;
+}
+.columns:after {
+  content: "";
+  display: block;
+  visibility: hidden;
+  font-size: 0;
+  clear: both;
+  height: 0;
+}
+.columns .left-column {
+  float: left;
+  width: 400px;
+}
+.columns .right-column {
+  width: 602px;
+  float: right;
+}
+.play-now {
+  padding-bottom: 25px;
+}
+.dropdown {
+  display: inline-block;
+  vertical-align: middle;
+}
+.dropdown .btn-default {
+  width: 120px;
+  text-align: left;
+  position: relative;
+}
+.dropdown .btn-default .caret {
+  position: absolute;
+  top: 14px;
+  right: 8px;
+}
+.buttons {
+  display: inline-block;
+  vertical-align: middle;
+}
+.buttons .btn-default {
+  width: 90px;
+}
+.buttons .btn-default:before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  margin: -3px 6px 0 0;
+}
+.play-btn {
+  display: none;
+}
+.play-btn:before {
+  border-left: 13px solid #333;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+.pause-btn:before {
+  width: 13px;
+  height: 13px;
+  border: solid #333;
+  border-width: 0 5px;
+}
+.stop-btn:before {
+  width: 13px;
+  height: 13px;
+  background: #333;
+}
