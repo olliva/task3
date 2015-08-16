@@ -16,7 +16,7 @@ function Player(audioContext, equalizer, visualizer) {
         if (source) {
             stop();
         }
-        
+
         buffer = b;
 
         playButton.style.display = 'none';
