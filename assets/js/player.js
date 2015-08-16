@@ -13,21 +13,11 @@ function Player(audioContext, equalizer, visualizer) {
     self.bindEvents = bindEvents;
 
     function playBuffer(b) {
-        if (source) { stop(); }
-
-        buffer = b;
-        source = audioContext.createBufferSource();
-        source.buffer = buffer;
-        source.onended = function (e) {
-            if (e.target == source) {
-                stop()
-            }
-        };
-
-        if (!source.start) {
-            source.start = source.noteOn;
-            source.stop = source.noteOff;
+        if (source) {
+            stop();
         }
+        
+        buffer = b;
 
         playButton.style.display = 'none';
         pauseButton.style.display = 'inline-block';
@@ -38,6 +28,15 @@ function Player(audioContext, equalizer, visualizer) {
     }
 
     function play() {
+        source = audioContext.createBufferSource();
+        if (!source.start) {
+            source.start = source.noteOn;
+            source.stop = source.noteOff;
+        }
+
+        source.buffer = buffer;
+        source.onended = onEnd;
+
         if (pausedAt) {
             startedAt = Date.now() - pausedAt;
             source.start(0, pausedAt / 1000);
@@ -53,8 +52,15 @@ function Player(audioContext, equalizer, visualizer) {
 
     function stop() {
         source.stop(0);
-        visualizer.stop();
         pausedAt = 0;
+    }
+
+    function onEnd(e) {
+        if (e.target != source) {
+            return;
+        }
+
+        visualizer.stop();
         playButton.style.display = 'inline-block';
         pauseButton.style.display = 'none';
     }
@@ -68,10 +74,7 @@ function Player(audioContext, equalizer, visualizer) {
 
         pauseButton.addEventListener('click', function () {
             source.stop(0);
-            visualizer.stop();
             pausedAt = Date.now() - startedAt;
-            playButton.style.display = 'inline-block';
-            pauseButton.style.display = 'none';
         });
 
         stopButton.addEventListener('click', stop);
