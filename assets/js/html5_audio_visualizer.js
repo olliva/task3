@@ -177,7 +177,6 @@ function Player(audioContext, equalizer, visualizer) {
         playButton = document.getElementById('play-button'),
         pauseButton = document.getElementById('pause-button'),
         stopButton = document.getElementById('stop-button'),
-        dropdownMenu = document.getElementById('dropdown-menu'),
         source,
         buffer,
         startedAt,
@@ -195,6 +194,8 @@ function Player(audioContext, equalizer, visualizer) {
     function play() {
         source = audioContext.createBufferSource();
         source.buffer = buffer;
+
+        source.onended = stop;
 
         if (!source.start) {
             source.start = source.noteOn; //in old browsers use noteOn method
@@ -214,6 +215,14 @@ function Player(audioContext, equalizer, visualizer) {
         visualizer.visualize(source);
     }
 
+    function stop() {
+        source.stop(0);
+        visualizer.stop();
+        pausedAt = 0;
+        playButton.style.display = 'inline-block';
+        pauseButton.style.display = 'none';
+    }
+
     function bind() {
         playButton.addEventListener('click', function () {
             play();
@@ -229,13 +238,8 @@ function Player(audioContext, equalizer, visualizer) {
             playButton.style.display = 'inline-block';
             pauseButton.style.display = 'none';
         });
-        stopButton.addEventListener('click', function () {
-            source.stop(0);
-            visualizer.stop();
-            pausedAt = 0;
-            playButton.style.display = 'inline-block';
-            pauseButton.style.display = 'none';
-        });
+        
+        stopButton.addEventListener('click', stop);
     }
 
     bind();
@@ -253,30 +257,31 @@ function AudioFileUploader(audioContext, player) {
         }
 
         var fileReader = new FileReader();
+
         fileReader.onload = function (e) { onFileReaderLoad(e, file) };
         fileReader.onerror = function (e) {
             throw new Error(e);
         };
-        document.getElementsByClassName('controls')[0].style.display = 'block';
-        document.getElementById('play-button').style.display = 'none';
-        document.getElementById('pause-button').style.display = 'inline-block';
+
         fileReader.readAsArrayBuffer(file);
     }
 
     function onFileReaderLoad(e, file) {
-        var url = file.url || file.name;
-        fileName.textContent = 'Сейчас исполняется файл: ' + url;
-
-        loadMetadata(url, FileAPIReader(file));
-
         var fileResult = e.target.result;
 
         audioContext.decodeAudioData(fileResult,
             function (buffer) {
+                document.getElementsByClassName('controls')[0].style.display = 'block';
+                document.getElementById('play-button').style.display = 'none';
+                document.getElementById('pause-button').style.display = 'inline-block';
+
+                var url = file.url || file.name;
+                fileName.textContent = 'Сейчас исполняется файл: ' + url;
+                loadMetadata(url, FileAPIReader(file));
                 player.playBuffer(buffer);
             },
             function (e) {
-                throw new Error(e);
+                alert('Неподходящий формат файла');
             });
     }
 
