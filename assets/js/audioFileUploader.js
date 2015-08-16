@@ -4,9 +4,9 @@ function AudioFileUploader(audioContext, player) {
         dropContainer = document.getElementById('audio-drop-container'),
         fileName = document.getElementById('play-now');
 
-    self.bind = bind;
+    self.bindEvents = bindEvents;
 
-    function start(file) {
+    function startPlaying(file) {
         if (!file) {
             return;
         }
@@ -62,15 +62,15 @@ function AudioFileUploader(audioContext, player) {
         e.stopPropagation();
         e.preventDefault();
         var file = e.dataTransfer.files[0];
-        start(file);
+        startPlaying(file);
     }
 
-    function bind() {
+    function bindEvents() {
         dropContainer.addEventListener('dragover', onDragover, false);
         dropContainer.addEventListener('drop', onDrop, false);
 
         audioFile.onchange = function () {
-            start(this.files[0]);
+            startPlaying(this.files[0]);
         };
     }
 }

@@ -14,7 +14,7 @@ function Equalizer(audioContext) {
     };
 
     self.equalize = equalize;
-    self.bind = bind;
+    self.bindEvents = bindEvents;
 
     function equalize(source) {
         source.connect(filters[0]);
@@ -48,7 +48,7 @@ function Equalizer(audioContext) {
         filters = createFilters();
     }
 
-    function bind() {
+    function bindEvents() {
         dropdownMenu.addEventListener('click', function (e) {
             dropdownList.style.display = (dropdownList.style.display == 'none') ? 'block' : 'none'
 

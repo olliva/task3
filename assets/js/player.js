@@ -10,7 +10,7 @@ function Player(audioContext, equalizer, visualizer) {
         pausedAt;
 
     self.playBuffer = playBuffer;
-    self.bind = bind;
+    self.bindEvents = bindEvents;
 
     function playBuffer(b) {
         buffer = b;
@@ -55,7 +55,7 @@ function Player(audioContext, equalizer, visualizer) {
         pauseButton.style.display = 'none';
     }
 
-    function bind() {
+    function bindEvents() {
         playButton.addEventListener('click', function () {
             play();
             pauseButton.style.display = 'inline-block';

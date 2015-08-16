@@ -8,6 +8,9 @@
     var equalizer = new Equalizer(audioContext);
     var player = new Player(audioContext, equalizer, visualizer);
     var uploader = new AudioFileUploader(audioContext, player);
-    uploader.bind();
+
+    equalizer.bindEvents();
+    player.bindEvents();
+    uploader.bindEvents();
 })();
 
