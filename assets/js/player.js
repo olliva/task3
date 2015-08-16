@@ -13,27 +13,31 @@ function Player(audioContext, equalizer, visualizer) {
     self.bindEvents = bindEvents;
 
     function playBuffer(b) {
+        if (source) { stop(); }
+
         buffer = b;
-
-        playButton.style.display = 'none';
-        pauseButton.style.display = 'inline-block';
-        controlsWrapper.style.display = 'block';
-
-        startedAt = pausedAt = null;
-        if (source) { source.stop(0); }
-        play();
-    }
-
-    function play() {
         source = audioContext.createBufferSource();
         source.buffer = buffer;
-        source.onended = stop;
+        source.onended = function (e) {
+            if (e.target == source) {
+                stop()
+            }
+        };
 
         if (!source.start) {
             source.start = source.noteOn;
             source.stop = source.noteOff;
         }
 
+        playButton.style.display = 'none';
+        pauseButton.style.display = 'inline-block';
+        controlsWrapper.style.display = 'block';
+
+        startedAt = pausedAt = null;
+        play();
+    }
+
+    function play() {
         if (pausedAt) {
             startedAt = Date.now() - pausedAt;
             source.start(0, pausedAt / 1000);

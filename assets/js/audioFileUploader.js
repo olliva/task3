@@ -24,7 +24,7 @@ function AudioFileUploader(audioContext, player, metadataLoader) {
         audioContext.decodeAudioData(
             fileResult,
             function (buffer) {
-                fileName.textContent = 'Сейчас исполняется файл: ' + url;
+                fileName.textContent = 'Сейчас исполняется файл: ' + (file.url || file.name);
                 metadataLoader.loadMetadata(file);
                 player.playBuffer(buffer);
             },
