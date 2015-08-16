@@ -60,7 +60,6 @@ function Player(audioContext, equalizer, visualizer) {
             play();
             pauseButton.style.display = 'inline-block';
             playButton.style.display = 'none';
-
         });
 
         pauseButton.addEventListener('click', function () {

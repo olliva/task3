@@ -23,7 +23,6 @@ function Equalizer(audioContext) {
 
     function createFilter(frequency) {
         var filter = audioContext.createBiquadFilter();
-
         filter.type = 'peaking';
         filter.frequency.value = frequency;
         filter.Q.value = 1;

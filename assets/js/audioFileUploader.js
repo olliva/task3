@@ -21,7 +21,8 @@ function AudioFileUploader(audioContext, player, metadataLoader) {
     function onFileReaderLoad(e, file) {
         var fileResult = e.target.result;
 
-        audioContext.decodeAudioData(fileResult,
+        audioContext.decodeAudioData(
+            fileResult,
             function (buffer) {
                 fileName.textContent = 'Сейчас исполняется файл: ' + url;
                 metadataLoader.loadMetadata(file);
